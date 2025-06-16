@@ -25,6 +25,34 @@ public class AppUserService implements UserDetailsService {
         return repository.save(user);
     }
 
+    public AppUser findByUsername(String username) {
+        return repository.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+    }
+
+    public AppUser findById(Long id) {
+        return repository.findById(id)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+    }
+
+    public java.util.List<AppUser> findAll() {
+        return repository.findAll();
+    }
+
+    public AppUser update(Long id, AppUser updated) {
+        AppUser user = findById(id);
+        if (updated.getUsername() != null) {
+            user.setUsername(updated.getUsername());
+        }
+        if (updated.getPassword() != null) {
+            user.setPassword(passwordEncoder.encode(updated.getPassword()));
+        }
+        if (updated.getRole() != null) {
+            user.setRole(updated.getRole());
+        }
+        return repository.save(user);
+    }
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         AppUser user = repository.findByUsername(username)

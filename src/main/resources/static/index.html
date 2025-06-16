@@ -21,19 +21,43 @@
     <button onclick="register()">Register</button>
 </div>
 
-<div id="authors">
-    <h2>Authors</h2>
-    <ul id="authorList"></ul>
-    <input type="text" id="authorName" placeholder="New author name">
-    <button onclick="addAuthor()">Add Author</button>
-</div>
+<div id="dashboard" style="display:none;">
+    <h2 id="welcome"></h2>
+    <div id="account">
+        <h3>Account</h3>
+        <input type="text" id="newUsername" placeholder="New username">
+        <input type="password" id="newPassword" placeholder="New password">
+        <button onclick="updateAccount()">Update</button>
+    </div>
 
-<div id="books">
-    <h2>Books</h2>
-    <ul id="bookList"></ul>
-    <input type="text" id="bookTitle" placeholder="New book title">
-    <input type="number" id="bookAuthorId" placeholder="Author id">
-    <button onclick="addBook()">Add Book</button>
+    <div id="loans">
+        <h3>Your Loans</h3>
+        <ul id="loanList"></ul>
+        <input type="number" id="loanBookId" placeholder="Book id">
+        <button onclick="borrowBook()">Borrow</button>
+    </div>
+
+    <div id="authors">
+        <h2>Authors</h2>
+        <ul id="authorList"></ul>
+        <input type="text" id="authorName" placeholder="New author name">
+        <button onclick="addAuthor()">Add Author</button>
+    </div>
+
+    <div id="books">
+        <h2>Books</h2>
+        <ul id="bookList"></ul>
+        <input type="text" id="bookTitle" placeholder="New book title">
+        <input type="number" id="bookAuthorId" placeholder="Author id">
+        <button onclick="addBook()">Add Book</button>
+    </div>
+
+    <div id="adminPanel" style="display:none;">
+        <h3>All Users</h3>
+        <ul id="userList"></ul>
+        <h3>All Loans</h3>
+        <ul id="allLoanList"></ul>
+    </div>
 </div>
 
 <script src="app.js"></script>
