@@ -24,10 +24,10 @@ Swagger UI is available once the application is running at `http://localhost:808
 
 ### Web UI
 
-A basic browser-based interface is served from `/index.html`. After starting the
-application open `http://localhost:8080/` and use the forms to register, log in
-and manage authors and books. All API calls are performed from the page using
-HTTP Basic authentication.
+A modern browser interface is available at `/index.html`. Start the application
+and navigate to `http://localhost:8080/` to register, log in and manage authors
+and books. The page uses HTTP Basic authentication for all requests and includes
+improved styling in `styles.css` for a cleaner experience.
 
 ### Authentication
 
