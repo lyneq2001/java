@@ -37,7 +37,11 @@ public class BookService {
         Book book = findById(id);
         book.setTitle(updated.getTitle());
         if (updated.getAuthor() != null) {
-            Author author = authorRepository.findById(updated.getAuthor().getId())
+            Long authorId = updated.getAuthor().getId();
+            if (authorId == null) {
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Author id must be provided");
+            }
+            Author author = authorRepository.findById(authorId)
                     .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Author not found"));
             book.setAuthor(author);
         }

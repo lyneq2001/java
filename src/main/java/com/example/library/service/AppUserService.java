@@ -9,6 +9,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.server.ResponseStatusException;
 
 @Service
 public class AppUserService implements UserDetailsService {
@@ -21,6 +23,9 @@ public class AppUserService implements UserDetailsService {
     }
 
     public AppUser register(String username, String password, Role role) {
+        if (repository.findByUsername(username).isPresent()) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Username already exists");
+        }
         AppUser user = new AppUser(username, passwordEncoder.encode(password), role);
         return repository.save(user);
     }
