@@ -21,3 +21,13 @@ java -jar target/Lista5-0.0.1-SNAPSHOT.jar
 The application exposes CRUD endpoints under `/authors` and `/books`. Each entity can be created, updated, retrieved or deleted. Books can also be listed by author via `/books/author/{authorId}`.
 
 Swagger UI is available once the application is running at `http://localhost:8080/swagger-ui.html` for interactive API documentation.
+
+### Authentication
+
+Two endpoints are available for managing user accounts:
+
+* `POST /auth/register` &ndash; create a new account with a chosen role (`USER` or `ADMIN`).
+* `POST /auth/login` &ndash; authenticate with a username and password.
+
+All other endpoints require authentication using HTTP Basic credentials.
+
