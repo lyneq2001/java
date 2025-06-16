@@ -22,6 +22,13 @@ The application exposes CRUD endpoints under `/authors` and `/books`. Each entit
 
 Swagger UI is available once the application is running at `http://localhost:8080/swagger-ui.html` for interactive API documentation.
 
+### Web UI
+
+A basic browser-based interface is served from `/index.html`. After starting the
+application open `http://localhost:8080/` and use the forms to register, log in
+and manage authors and books. All API calls are performed from the page using
+HTTP Basic authentication.
+
 ### Authentication
 
 Two endpoints are available for managing user accounts:
