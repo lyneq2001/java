@@ -3,6 +3,7 @@ package com.example.library.controller;
 import com.example.library.model.AppUser;
 import com.example.library.model.Role;
 import com.example.library.service.AppUserService;
+import com.example.library.config.JwtUtil;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -16,10 +17,12 @@ import org.springframework.web.bind.annotation.*;
 public class AuthController {
     private final AppUserService userService;
     private final AuthenticationManager authenticationManager;
+    private final JwtUtil jwtUtil;
 
-    public AuthController(AppUserService userService, AuthenticationManager authenticationManager) {
+    public AuthController(AppUserService userService, AuthenticationManager authenticationManager, JwtUtil jwtUtil) {
         this.userService = userService;
         this.authenticationManager = authenticationManager;
+        this.jwtUtil = jwtUtil;
     }
 
     @PostMapping("/register")
@@ -35,7 +38,7 @@ public class AuthController {
                 new UsernamePasswordAuthenticationToken(request.username, request.password)
             );
             if (auth.isAuthenticated()) {
-                return "Login successful";
+                return jwtUtil.generateToken(request.username);
             }
         } catch (AuthenticationException e) {
             // ignore

@@ -45,4 +45,14 @@ public class BookController {
     public List<Book> getByAuthor(@PathVariable Long authorId) {
         return bookService.findByAuthor(authorId);
     }
+
+    @GetMapping("/genre/{genreId}")
+    public List<Book> getByGenreSorted(@PathVariable Long genreId) {
+        return bookService.findByGenreSorted(genreId);
+    }
+
+    @GetMapping("/search")
+    public List<Book> search(@RequestParam String title) {
+        return bookService.searchByTitle(title);
+    }
 }

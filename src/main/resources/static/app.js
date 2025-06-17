@@ -4,13 +4,14 @@ let currentUser = null;
 function login() {
     const username = document.getElementById('username').value;
     const password = document.getElementById('password').value;
-    authHeader = 'Basic ' + btoa(username + ':' + password);
+    authHeader = null;
     fetch('/auth/login', {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({username, password})
-    }).then(r => {
-        if (r.ok) {
+    }).then(r => r.text()).then(token => {
+        if (token) {
+            authHeader = 'Bearer ' + token;
             fetchUser().then(() => {
                 document.getElementById('auth').style.display = 'none';
                 document.getElementById('dashboard').style.display = 'block';
