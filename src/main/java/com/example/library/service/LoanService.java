@@ -6,6 +6,7 @@ import com.example.library.model.Loan;
 import com.example.library.repository.AppUserRepository;
 import com.example.library.repository.BookRepository;
 import com.example.library.repository.LoanRepository;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -30,6 +31,7 @@ public class LoanService {
 
     public List<Loan> findByUser(Long userId) { return loanRepository.findByUserId(userId); }
 
+    @Transactional
     public Loan borrowBook(Long userId, Long bookId) {
         AppUser user = userRepository.findById(userId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
@@ -39,6 +41,7 @@ public class LoanService {
         return loanRepository.save(loan);
     }
 
+    @Transactional
     public void returnLoan(Long loanId) { loanRepository.deleteById(loanId); }
 
     public Loan findById(Long id) {

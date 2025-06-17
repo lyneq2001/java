@@ -1,6 +1,8 @@
 package com.example.library.config;
 
 import com.example.library.service.AppUserService;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import com.example.library.config.JwtAuthFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -19,7 +21,7 @@ public class SecurityConfig {
     }
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http, AppUserService userService) throws Exception {
+    public SecurityFilterChain filterChain(HttpSecurity http, AppUserService userService, JwtAuthFilter jwtFilter) throws Exception {
         http.csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/", "/index.html", "/app.js",
@@ -28,7 +30,7 @@ public class SecurityConfig {
                 .anyRequest().authenticated()
             )
             .userDetailsService(userService)
-            .httpBasic();
+            .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
 
